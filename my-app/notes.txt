@@ -11,12 +11,39 @@ because json files are data only and we cant have comments, im gonna write what 
 
 
 -package.json : 
-                "scripts": {
-                    "dev": "next dev",             //Starts the development server using Turbopack (default bundler).
-                    "build": "next build",         //Builds the application for production.
-                    "start": "next start",         //Starts the production server.
-                    "lint": "eslint"               //Runs ESLint.
+The package.json file is basically the control center of your entire project.
+It tells Node.js and npm (the package manager):
+    -What your app is called
+    -Which version it is
+    -What packages (libraries) it depends on
+    -What commands (scripts) you can run
+    -Which versions of tools are compatible
+    -It’s automatically created when you run npm init or npx create-next-app.
+
+                "name": "my-app",                                   //the name of your project (also the folder name if you didn’t rename it).
+                "version": "0.1.0",                                 //just a version number; useful if you publish it as an npm package (you won’t).
+                "private": true,                                    //prevents your project from being accidentally published to npm.
+                "scripts": {                    
+                    "dev": "next dev",                              //Starts the development server using Turbopack (default bundler). here its (http://localhost:3000)
+                    "build": "next build",                          //Builds the application for production. Prepares your app for production (optimized, minified, compiled)
+                    "start": "next start",                          //Starts the production server. (after building)
+                    "lint": "eslint"                                //Runs ESLint. (Checks your code for syntax or style issues)
+                }                   
+                "dependencies": {                                   //These are libraries your project uses in production:
+                  "react": "19.2.0",                                //The React library (UI building blocks)
+                  "react-dom": "19.2.0",                            //The part of React that connects components to the browser
+                  "next": "16.0.0"                                  //The Next.js framework itself
+                }                   
+                "devDependencies": {                                //These are tools you use during development, not during actual runtime
+                  "babel-plugin-react-compiler": "1.0.0",           //helps optimize React code with the new compiler
+                  "@tailwindcss/postcss": "^4",                     //for styling (utility-first CSS)
+                  "tailwindcss": "^4",                              //for styling (utility-first CSS)
+                  "eslint": "^9",                                   //for code linting (checks syntax, formatting, etc.)
+                  "eslint-config-next": "16.0.0"                    //for code linting (checks syntax, formatting, etc.)
                 }
+
+
+
 
 
 
