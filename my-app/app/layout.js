@@ -36,3 +36,20 @@ export default function RootLayout({ children }) {    //This is the root layout 
     </html>
   );                                                  //It wraps everything that shows up on the screen.
 }
+
+
+
+//good to know:
+//has another prop called params.
+
+//has a props helper.
+
+//Layouts are cached in the client during navigation to avoid unnecessary server requests.
+
+//Layouts do not rerender. They can be cached and reused to avoid unnecessary computation when navigating between pages. By restricting layouts from accessing the raw request, Next.js can prevent the execution of potentially slow or expensive user code within the layout, which could negatively impact performance.
+
+//Layouts do not rerender on navigation, so they cannot access search params which would otherwise become stale.
+
+//Layouts do not re-render on navigation, so they do not access pathname which would otherwise become stale.
+
+//theres more on the website, im gonna let go now.
