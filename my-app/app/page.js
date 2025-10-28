@@ -90,34 +90,34 @@ export default function Home() {
             },
           }}
         />
-        <Button
-          variant="contained"
-          onClick={getWeather}
-          sx={{
+      <Button
+        variant="contained"
+        onClick={getWeather}
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? "white"
+              : "rgba(255,255,255,0.15)",
+          color: (theme) =>
+            theme.palette.mode === "light" ? "#2563eb" : "#90caf9",
+          fontWeight: "bold",
+          borderRadius: 1,
+          transition: "all 0.3s ease",
+          "&:hover": {
             backgroundColor: (theme) =>
               theme.palette.mode === "light"
-                ? "white"
-                : "rgba(255,255,255,0.15)",
-            color: (theme) =>
-              theme.palette.mode === "light" ? "#2563eb" : "#90caf9",
-            fontWeight: "bold",
-            borderRadius: 1,
-            transition: "all 0.3s ease",
-            "&:hover": {
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? "#e0e7ff"
-                  : "rgba(255,255,255,0.25)",
-              transform: "scale(1.03)",
-              boxShadow: (theme) =>
-                theme.palette.mode === "light"
-                  ? "0 0 10px rgba(37,99,235,0.2)"
-                  : "0 0 10px rgba(255,255,255,0.2)",
-            },
-          }}
-        >
-          Get Weather
-        </Button>
+                ? "#e0e7ff"
+                : "rgba(255,255,255,0.25)",
+            transform: "scale(1.03)",
+            boxShadow: (theme) =>
+              theme.palette.mode === "light"
+                ? "0 0 10px rgba(37,99,235,0.2)"
+                : "0 0 10px rgba(255,255,255,0.2)",
+          },
+        }}
+      >
+        Get Weather
+      </Button>
 
       </Box>
 

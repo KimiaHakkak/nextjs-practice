@@ -85,7 +85,7 @@ export default function RootLayout({ children }) {    //This is the root layout 
         <ColorModeContext.Provider value={colorMode}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {children}
+                {children}
           </ThemeProvider>
         </ColorModeContext.Provider>                                                           
       </body>                                                                 
