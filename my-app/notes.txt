@@ -5,14 +5,14 @@ because json files are data only and we cant have comments, im gonna write what 
 
 
 
-+ list of default .json files:      1. package.json : Project dependencies and scripts
-                                    2. package-lock.json :
-                                    3. jsconfig.json :
++ list of top level files that are .json:      1. package.json 
+                                               2. package-lock.json 
+                                               3. jsconfig.json 
 
 -----------------------------------------------------------------------------------------------------------------
 
 -package.json : 
-The package.json file is basically the control center of your entire project.
+The package.json file is basically the control center of your entire project. Project dependencies and scripts.
 It tells Node.js and npm (the package manager):
     -What your app is called
     -Which version it is
