@@ -1,4 +1,4 @@
-// ----------------------------------------------- what is this file -----------------------------------------------
+// ----------------------------------------------- what is this top level file -----------------------------------------------
 
 //Next.js provides an ESLint plugin, @next/eslint-plugin-next, already bundled within the base configuration that makes it possible to catch common issues and problems in a Next.js application.
 /*

@@ -1,4 +1,4 @@
-// ----------------------------------------------- what is this file -----------------------------------------------
+// ----------------------------------------------- what is this top level file -----------------------------------------------
 
 //Think of this file like the “settings panel” for your project. its the Configuration file for Next.js. pretty cool huh?
 
