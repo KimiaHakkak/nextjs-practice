@@ -1,7 +1,18 @@
 "use client";
 import { useState } from "react";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  CircularProgress,
+  Card,
+  CardContent,
+  IconButton,
+} from "@mui/material";
+import { LightMode, DarkMode } from "@mui/icons-material";
 
-export default function Home() {
+export default function Home({mode, setMode}) {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
@@ -30,52 +41,111 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 to-indigo-500 flex flex-col items-center justify-center p-6">
-      <h1 className="text-3xl font-bold text-white mb-6">Weather App</h1>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background: "linear-gradient(to bottom right, #60a5fa, #6366f1)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        p: 3,
+      }}
+    >
+      {/* Dark/Light Toggle */}
+        <IconButton
+          onClick={() => setMode(mode === "light" ? "dark" : "light")}
+          sx={{
+            position: "absolute",
+            top: 16,
+            right: 16,
+            color: "white",
+            bgcolor: "rgba(255,255,255,0.1)",
+            "&:hover": { bgcolor: "rgba(255,255,255,0.3)" },
+          }}
+        >
+          {mode === "light" ? <DarkMode /> : <LightMode />}
+        </IconButton>
 
-      <div className="flex gap-2 mb-6">
-        <input
-          type="text"
+      <Typography
+        variant="h4"
+        sx={{ fontWeight: "bold", color: "white", mb: 3 }}
+      >
+        Weather App
+      </Typography>
+
+      {/* Input and Button */}
+      <Box sx={{ display: "flex", gap: 2, mb: 4 }}>
+        <TextField
+          variant="outlined"
+          size="small"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           placeholder="Enter city..."
-          className="px-4 py-2 rounded-md outline-none shadow text-gray-700"
+          sx={{
+            backgroundColor: "white",
+            borderRadius: 1,
+            input: { color: "text.primary" },
+          }}
         />
-        <button
+        <Button
+          variant="contained"
           onClick={getWeather}
-          className="bg-white text-blue-600 font-semibold px-4 py-2 rounded-md shadow hover:bg-blue-100"
+          sx={{
+            backgroundColor: "white",
+            color: "#2563eb",
+            fontWeight: "bold",
+            "&:hover": { backgroundColor: "#e0e7ff" },
+          }}
         >
           Get Weather
-        </button>
-      </div>
+        </Button>
+      </Box>
 
       {/* Loading Spinner */}
-      {loading && (
-        <div className="flex items-center justify-center">
-          <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-        </div>
+      {loading && <CircularProgress sx={{ color: "white" }} />}
+
+      {/* Error Message */}
+      {error && (
+        <Typography sx={{ color: "#fee2e2", mt: 2 }}>{error}</Typography>
       )}
 
-      {/* Error message */}
-      {error && <p className="text-red-200 mt-4">{error}</p>}
-
-      {/* Weather data */}
+      {/* Weather Card */}
       {weather && !loading && (
-        <div className="bg-white/20 backdrop-blur-md text-white p-6 rounded-2xl shadow-md w-80 mt-6 text-center">
-          <h2 className="text-2xl font-semibold mb-2">{weather.name}</h2>
-          <p className="text-5xl font-bold mb-2">
-            {Math.round(weather.main.temp)}°C
-          </p>
-          <p className="capitalize text-lg mb-4">{weather.weather[0].description}</p>
-
-          {/* Weather Icon */}
-          <img
-            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-            alt="weather icon"
-            className="mx-auto"
-          />
-        </div>
+        <Card
+          sx={{
+            backgroundColor: "rgba(255,255,255,0.2)",
+            backdropFilter: "blur(10px)",
+            color: "white",
+            borderRadius: 4,
+            boxShadow: 3,
+            width: 300,
+            textAlign: "center",
+            mt: 4,
+          }}
+        >
+          <CardContent>
+            <Typography variant="h5" sx={{ mb: 1, fontWeight: 600 }}>
+              {weather.name}
+            </Typography>
+            <Typography variant="h3" sx={{ fontWeight: 700 }}>
+              {Math.round(weather.main.temp)}°C
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{ textTransform: "capitalize", mb: 2 }}
+            >
+              {weather.weather[0].description}
+            </Typography>
+            <Box
+              component="img"
+              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+              alt="weather icon"
+              sx={{ mx: "auto", display: "block" }}
+            />
+          </CardContent>
+        </Card>
       )}
-    </div>
+    </Box>
   );
 }
