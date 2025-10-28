@@ -6,9 +6,10 @@ because json files are data only and we cant have comments, im gonna write what 
 
 
 + list of default .json files:      1. package.json : Project dependencies and scripts
-                                    2.package-lock.json :
-                                    3.jsconfig.json :
+                                    2. package-lock.json :
+                                    3. jsconfig.json :
 
+-----------------------------------------------------------------------------------------------------------------
 
 -package.json : 
 The package.json file is basically the control center of your entire project.
@@ -42,6 +43,39 @@ It tells Node.js and npm (the package manager):
                   "eslint-config-next": "16.0.0"                    //for code linting (checks syntax, formatting, etc.)
                 }
 
+-----------------------------------------------------------------------------------------------------------------
+
+-package-lock.json :
+Every package (like next or react) depends on dozens or even hundreds of other packages. All of those dependencies — including exact versions, integrity checksums, and download URLs — are recorded inside package-lock.json.
+while package.json Lists what you want installed, package-lock.json Lists what you actually got installed. its 6500 lines im not gonna expand that. plus you shouldn't touch it at all.
+This file does: 
+    -Version locking : Ensures that every developer (or deployment server) installs exactly the same versions of every dependency.
+    -Reproducible builds : Prevents your project from suddenly breaking because a sub-package updated.
+    -Faster installs : npm uses the lock file to skip version resolution, so npm install is much faster.
+    -Integrity verification : Contains “hashes” that confirm the downloaded files weren’t tampered with
+
+-----------------------------------------------------------------------------------------------------------------
+
+-jsoncofig.json : 
+Configuration file for JavaScript. (we have a tsconfig file too, it could be here or not. its for typescript configuration)
+jsconfig.json tells your editor (like VS Code) and build tools how to understand and navigate your JavaScript project.
+It helps with:
+    -Autocomplete
+    -Go-to-definition
+    -Path shortcuts (aliases)
+    -IntelliSense (smart suggestions)
+    -Keeping your imports clean and organized
+                                                                    
+                {
+                  "compilerOptions": {                              //VS Code internally uses TypeScript’s compiler (tsserver) to power IntelliSense for both JS and TS projects. So this section tells that internal engine : “Here’s how to interpret my files.”
+                    "paths": {                                      //This defines path aliases — shortcuts for your import statements.
+                      "@/*": ["./*"]                                //it means: “Whenever I write an import path starting with @/, treat it as if it starts from the root folder of my project.”. Makes @/ mean “from the project root”
+                    }
+                  }
+                }
+
+
+-----------------------------------------------------------------------------------------------------------------
 
 
 
