@@ -6,8 +6,8 @@
 
 
 "use client";
-import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect, createContext } from "react";
+import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
 
 import { Geist, Geist_Mono } from "next/font/google"; //Imports two Google fonts using Next.js’s built-in font optimization
 import "./globals.css";                               //Imports a global stylesheet (globals.css) that applies styles to your whole app
@@ -29,10 +29,22 @@ export const metadata = {                             //This is a Next.js 13+ fe
 };
 */
 
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+
 export default function RootLayout({ children }) {    //This is the root layout component. Layout components should accept and use a children prop. During rendering, children will be populated with the route segments the layout is wrapping. These will primarily be the component of a child Layout (if it exists) or Page, but could also be other special files like Loading or Error when applicable. It defines your global HTML structure (<html> and <body> tags).
     const [mode, setMode] = useState("light");
 
-  // Dynamically create theme based on mode
+    // Toggle between dark and light mode
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    []
+  );
+  
+  // Create theme based on mode
   const theme = useMemo(
     () =>
       createTheme({
@@ -59,6 +71,10 @@ export default function RootLayout({ children }) {    //This is the root layout 
     [mode]
   );
 
+  useEffect(() => {
+  document.body.dataset.theme = mode;
+  }, [mode]);
+
   
   return (                                            //It receives { children } — this represents whatever page or nested layout is being rendered.
     <html lang="en">
@@ -66,14 +82,12 @@ export default function RootLayout({ children }) {    //This is the root layout 
         className={`${geistSans.variable} ${geistMono.variable} antialiased`} //It applies the fonts and antialiased (a CSS smoothing class from Tailwind) to the body.
         style={{ margin: 0 }}
       >
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {/* Provide toggle function to all pages */}
-          {children && typeof children === "object"
-            ? // Pass mode and setMode as props
-              { ...children, props: { ...children.props, mode, setMode } }
-            : children}
-        </ThemeProvider>                                                           
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
+        </ColorModeContext.Provider>                                                           
       </body>                                                                 
     </html>
   );                                                  //It wraps everything that shows up on the screen.
