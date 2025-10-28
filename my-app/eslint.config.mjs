@@ -12,6 +12,8 @@ It’s like a “grammar checker” for your code — it ensures your code is cl
 
 
 
+
+
 import { defineConfig, globalIgnores } from "eslint/config"; //This imports functions to define an ESLint configuration using the new modern ESLint flat config format.
 import nextVitals from "eslint-config-next/core-web-vitals"; //This ensures your code follows Next.js + React quality standards.
 
