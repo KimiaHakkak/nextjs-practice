@@ -1,0 +1,23 @@
+----------------------------------------------- what is this file -----------------------------------------------
+
+because json files are data only and we cant have comments, im gonna write what i know about each .json file here.
+
+
+
+
++ list of default .json files:      1. package.json : Project dependencies and scripts
+                                    2.package-lock.json :
+                                    3.jsconfig.json :
+
+
+-package.json : 
+                "scripts": {
+                    "dev": "next dev",             //Starts the development server using Turbopack (default bundler).
+                    "build": "next build",         //Builds the application for production.
+                    "start": "next start",         //Starts the production server.
+                    "lint": "eslint"               //Runs ESLint.
+                }
+
+
+
+
