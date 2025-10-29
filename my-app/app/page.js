@@ -12,7 +12,7 @@ import { useWeather } from "@/hooks/useWeather";
 
 export default function Home() {
   const theme = useTheme();
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState(""); //
   const { data: weather, isLoading, error, refetch } = useWeather(city);
 
   const handleSearch = () => {

@@ -14,7 +14,7 @@ export default function SearchBar({ city, setCity, onSearch }) {
         variant="outlined"
         size="small"
         value={city}
-        onChange={(e) => setCity(e.target.value)} //we set the city we typed, setCity comes from page.js
+        onChange={(e) => setCity(e.target.value)} //1-onChange fires when you type inside your textfield. setCity(e.target.value) is called — but setCity is a setter from const [city, setCity] = useState("") declared in app/page.js.
         placeholder="Enter city..."
         sx={{
           backgroundColor: theme.palette.background.paper,
