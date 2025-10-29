@@ -1,3 +1,5 @@
+//Server Route
+//Fetches external API securely (API key never leaves server).
 
 import { NextResponse } from "next/server";
 

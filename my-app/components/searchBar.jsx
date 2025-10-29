@@ -1,3 +1,6 @@
+//UI Input
+//Handles typing and search trigger.
+
 "use client";
 import { Box, TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -11,7 +14,7 @@ export default function SearchBar({ city, setCity, onSearch }) {
         variant="outlined"
         size="small"
         value={city}
-        onChange={(e) => setCity(e.target.value)}
+        onChange={(e) => setCity(e.target.value)} //we set the city we typed, setCity comes from page.js
         placeholder="Enter city..."
         sx={{
           backgroundColor: theme.palette.background.paper,

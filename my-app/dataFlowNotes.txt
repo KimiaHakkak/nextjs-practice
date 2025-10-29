@@ -11,3 +11,20 @@ WeatherCard (renders data)
 caching: 
 First time: /api/weather?q=Berlin → cached as ["weather", "Berlin"]
 Second time: instantly returns cached Berlin data
+-------------------------------
+
+You type “Paris” → stored in React state city.
+
+You click Get Weather → triggers handleSearch().
+
+handleSearch() calls refetch() from TanStack Query.
+
+refetch() runs your queryFn → that’s getWeather(city).
+
+getWeather(city) calls your Next.js API route → /api/weather?q=Paris.
+
+The API route (route.js) fetches data from OpenWeather, keeps your API key secret, and sends the weather JSON back to the frontend.
+
+React Query caches that data (key: ["weather", "Paris"]) and reuses it next time you search “Paris.”
+
+WeatherCard renders the fetched data beautifully with MUI.

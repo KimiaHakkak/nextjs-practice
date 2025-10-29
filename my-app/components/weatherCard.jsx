@@ -1,3 +1,6 @@
+//UI Display
+//Shows fetched weather data nicely.
+
 "use client";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 

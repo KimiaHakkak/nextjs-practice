@@ -1,3 +1,6 @@
+//Main Page (Client Component)
+//Manages state (city), handles fetch triggering, shows components.
+
 "use client";
 import { useState } from "react";
 import { Box, Typography, CircularProgress } from "@mui/material";
@@ -41,7 +44,7 @@ export default function Home() {
         Weather App
       </Typography>
 
-      <SearchBar city={city} setCity={setCity} onSearch={handleSearch} />
+      <SearchBar city={city} setCity={setCity} onSearch={handleSearch} /> {/*this sets the city using our SearchBar react component*/}
 
       {isLoading && <CircularProgress sx={{ color: "white", mt: 2 }} />}
 

@@ -1,3 +1,6 @@
+//UI Control
+//Toggles dark/light mode.
+
 "use client";
 import { IconButton } from "@mui/material";
 import { LightMode, DarkMode } from "@mui/icons-material";

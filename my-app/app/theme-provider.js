@@ -1,3 +1,6 @@
+//MUI Theme Context
+//Handles light/dark theme with context + MUI’s ThemeProvider.
+
 "use client"
 
 import React, { useMemo, useState, useEffect, createContext } from "react";

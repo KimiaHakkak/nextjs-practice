@@ -1,3 +1,6 @@
+//Fetch Function
+//Talks to your API route — keeps fetch logic clean and reusable.
+
 export async function getWeather(city) {
     if (!city) throw new Error("City name is required");
 
