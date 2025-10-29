@@ -1,0 +1,13 @@
+SearchBar (user types city)
+      ↓
+Home (sets city)
+      ↓
+useWeather(city)
+      ↓
+TanStack Query → fetches from /api/weather
+      ↓
+WeatherCard (renders data)
+
+caching: 
+First time: /api/weather?q=Berlin → cached as ["weather", "Berlin"]
+Second time: instantly returns cached Berlin data

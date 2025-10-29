@@ -1,26 +1,14 @@
-import {useState} from "rect";
-import getWeather from "@/lib/getWeather";
+// hooks/useWeather.js
+"use client";
+import { useQuery } from "@tanstack/react-query";
+import { getWeather } from "@/lib/getWeather";
 
-
-export default function useWeather(){
-    const [weather, setWeather] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-
-    const fetchWeather = async(city) => {
-        if(!city) { return; }
-            setLoading(true);
-            setError(null);
-            setWeather(null);
-        }
-
-    try {
-        const data = getWeather(city);
-        setWeather(data);
-    } catch (err) {
-        setError(err.message);
-    } finally {
-        setLoading(false);
-    }
-    return {weather, loading, error, fetchWeather};
+export function useWeather(city) {
+    return useQuery({
+        queryKey: ["weather", city], // unique cache key per city
+        queryFn: () => getWeather(city), // fetch function
+        enabled: !!city, // only runs if city is not empty
+        retry: 1, // retry once if failed
+        staleTime: 1000 * 60 * 5, // cache stays fresh for 5 minutes
+    });
 }
