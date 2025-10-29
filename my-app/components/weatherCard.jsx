@@ -4,6 +4,14 @@ import { Card, CardContent, Typography, Box } from "@mui/material";
 export default function WeatherCard({ weather }) {
   if (!weather) return null;
 
+  const {
+    name,
+    main: { temp } = {},
+    weather: weatherInfo = [],
+  } = weather;
+
+  const condition = weatherInfo[0];
+
   return (
     <Card
       sx={{
@@ -19,23 +27,25 @@ export default function WeatherCard({ weather }) {
     >
       <CardContent>
         <Typography variant="h5" sx={{ mb: 1, fontWeight: 600 }}>
-          {weather.name}
+          {name}
         </Typography>
         <Typography variant="h3" sx={{ fontWeight: 700 }}>
-          {Math.round(weather.main.temp)}°C
+          {Math.round(temp)}°C
         </Typography>
         <Typography
           variant="subtitle1"
           sx={{ textTransform: "capitalize", mb: 2 }}
         >
-          {weather.weather[0].description}
+          {condition?.description}
         </Typography>
-        <Box
-          component="img"
-          src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-          alt="weather icon"
-          sx={{ mx: "auto", display: "block" }}
-        />
+        {condition?.icon && (
+          <Box
+            component="img"
+            src={`https://openweathermap.org/img/wn/${condition.icon}@2x.png`}
+            alt="weather icon"
+            sx={{ mx: "auto", display: "block" }}
+          />
+        )}
       </CardContent>
     </Card>
   );

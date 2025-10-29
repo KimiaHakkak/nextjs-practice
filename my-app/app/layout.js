@@ -1,18 +1,10 @@
-// ----------------------------------------------- what is this routing file -----------------------------------------------
-
-//The layout file is used to define a layout in your Next.js application. A root layout is the top-most layout in the root app directory. It is used to define the <html> and <body> tags and other globally shared UI.
-//It defines how your app’s HTML structure and consistent elements are rendered. Without it, Next.js wouldn’t know what your root document looks like — it’s sort of like index.html in plain React apps.
-//layout components are server side, so we cant directly add react query here.
-
-
 import QueryProvider from "./providers";
-import ColorModeProvider from "./themeProvider";
-import { Geist, Geist_Mono } from "next/font/google"; //Imports two Google fonts using Next.js’s built-in font optimization
-import "@/styles/globals.css";                               //Imports a global stylesheet (globals.css) that applies styles to your whole app
+import ColorModeProvider from "./theme-provider";
+import { Geist, Geist_Mono } from "next/font/google"; 
+import "@/styles/globals.css";                        
 
-const geistSans = Geist({                             //This defines custom CSS variables for the two fonts
-  variable: "--font-geist-sans",                      //these variables are applied to the <body> so you can use them globally via CSS.
-  subsets: ["latin"],
+const geistSans = Geist({                             
+  variable: "--font-geist-sans",                      
 });
 
 const geistMono = Geist_Mono({
@@ -20,19 +12,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {                            //This is a Next.js 13+ feature that lets you define metadata like <title>, <meta> tags, description, and more. Next.js automatically injects this into the HTML head — you don’t need to manually write <head> tags.
+export const metadata = {                            
 
   title: "Weather App",
   description: "Next.js + MUI + TanStack Query demo",
 };
 
-export default function RootLayout({ children }) {    //This is the root layout component. Layout components should accept and use a children prop. During rendering, children will be populated with the route segments the layout is wrapping. These will primarily be the component of a child Layout (if it exists) or Page, but could also be other special files like Loading or Error when applicable. It defines your global HTML structure (<html> and <body> tags).
-
+export default function RootLayout({ children }) {    
   
-  return (                                            //It receives { children } — this represents whatever page or nested layout is being rendered.
+  return (                                           
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`} //It applies the fonts and antialiased (a CSS smoothing class from Tailwind) to the body.
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`} 
         style={{ margin: 0 }}
       >
             <QueryProvider>
@@ -42,22 +33,5 @@ export default function RootLayout({ children }) {    //This is the root layout 
             </QueryProvider>                                                         
       </body>                                                                 
     </html>
-  );                                                  //It wraps everything that shows up on the screen.
+  );                                     
 }
-
-
-
-//good to know:
-//has another prop called params.
-
-//has a props helper.
-
-//Layouts are cached in the client during navigation to avoid unnecessary server requests.
-
-//Layouts do not rerender. They can be cached and reused to avoid unnecessary computation when navigating between pages. By restricting layouts from accessing the raw request, Next.js can prevent the execution of potentially slow or expensive user code within the layout, which could negatively impact performance.
-
-//Layouts do not rerender on navigation, so they cannot access search params which would otherwise become stale.
-
-//Layouts do not re-render on navigation, so they do not access pathname which would otherwise become stale.
-
-//theres more on the website, im gonna let go now.
