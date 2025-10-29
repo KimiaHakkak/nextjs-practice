@@ -7,7 +7,7 @@
 
 import ColorModeProvider from "./themeProvider";
 import { Geist, Geist_Mono } from "next/font/google"; //Imports two Google fonts using Next.js’s built-in font optimization
-import "./globals.css";                               //Imports a global stylesheet (globals.css) that applies styles to your whole app
+import "@/styles/globals.css";                               //Imports a global stylesheet (globals.css) that applies styles to your whole app
 
 const geistSans = Geist({                             //This defines custom CSS variables for the two fonts
   variable: "--font-geist-sans",                      //these variables are applied to the <body> so you can use them globally via CSS.
