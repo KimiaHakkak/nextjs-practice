@@ -4,7 +4,7 @@ import { useState, useContext } from "react";
 import { Box, TextField, Button, Typography, CircularProgress, Card, CardContent, IconButton, } from "@mui/material";
 import { LightMode, DarkMode } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
-import { ColorModeContext } from "./layout";
+import { ColorModeContext } from "./themeProvider"; //you cant import a server component in a client component, so we shouldnt import layout here
 
 export default function Home() {
   const colorMode = useContext(ColorModeContext);
@@ -118,9 +118,7 @@ export default function Home() {
       >
         Get Weather
       </Button>
-
       </Box>
-
       {loading && <CircularProgress sx={{ color: "white" }} />}
       {error && <Typography sx={{ color: "#fee2e2", mt: 2 }}>{error}</Typography>}
 
