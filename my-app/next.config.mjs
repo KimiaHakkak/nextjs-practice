@@ -11,6 +11,10 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,                            //it enables the React Compiler, which optimizes rendering and re-renders intelligently under the hood (kind of like an automatic performance boost).
+
+  turbopack: {
+    root: import.meta.dirname, 
+  }
 };
 
 export default nextConfig;                        //its a newer syntax than what was on the website. were using module system: ES Modules (next.config.mjs) instead of CommonJs (next.config.js)
