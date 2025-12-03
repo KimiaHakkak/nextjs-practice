@@ -1634,8 +1634,8 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
             label="Page Size"
             value={printSize}
             onChange={(e) => {const newSize = e.target.value;
-                              setPrintSize(newSize);
-                              window.history.pushState({}, "", `/print?size=${newSize}`);
+              setPrintSize(newSize);
+              window.history.pushState({}, "", `/print?size=${newSize}`);
             }}
           >
             {pageSize.map((p) => (
@@ -1662,7 +1662,29 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
           >
             <TableContainer component={Paper} sx={{ borderRadius: 0, overflow: "hidden"}}>
               <Table size="small" sx={{ tableLayout: "fixed", width: "100%"}}>
-                {/* REPEATABLE HEADER */}
+                {/* ✅ Define column widths once here */}
+                  <colgroup>
+                    <col style={{ width: "3%" }} />   {/* ردیف */}
+                    <col style={{ width: "4.9%" }} />   {/* سطح */}
+                    <col style={{ width: "3%" }} />     {/* ت1 */}
+                    <col style={{ width: "3%" }} />     {/* ت2 */}
+                    <col style={{ width: "3%" }} />     {/* معین */}
+                    <col style={{ width: "3%" }} />     {/* کل */}
+                    <col style={{ width: "16%" }} />  {/* نام حساب */}
+                    <col style={{ width: "4.9%" }} />   {/* نوع */}
+                    <col style={{ width: "4.9%" }} />   {/* جزء */}
+                    <col style={{ width: "6.6%" }} />   {/* ماهيت مانده */}
+                    <col style={{ width: "6.6%" }} />   {/* ماهيت بودجه */}
+                    <col style={{ width: "3.3%" }} />   {/* تعداد */}
+                    <col style={{ width: "4.9%" }} />   {/* شرح تعداد */}
+                    <col style={{ width: "4.9%" }} />   {/* شماره عطف */}
+                    <col style={{ width: "4.9%" }} />   {/* تاريخ عطف */}
+                    <col style={{ width: "4.9%" }} />   {/* نوع ارز */}
+                    <col style={{ width: "5%" }} />   {/* مرکز هزینه */}
+                    <col style={{ width: "5%" }} />   {/* مرکز1 */}
+                  </colgroup>
+
+                {/* Top info block */}
                 <TableHead>
                   <TableRow>
                     <TableCell colSpan={18} sx={{ border: "1px solid #000", p: 0 }}>
