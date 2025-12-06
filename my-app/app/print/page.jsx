@@ -1537,19 +1537,28 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
   },
 ] }, ref) {
 
-  // Safe localStorage reads
+  // const company =
+  // JSON.parse(localStorage.getItem("reuser"))?.find(
+    // (item) => item.Setting_KeyRUS === "databaseName"
+  // )?.Setting_Value ?? null;
+  
+  // const { Name } = JSON.parse(localStorage.getItem("user"));
+  
   let company = '';
-  let Name = '';
+  let { Name } = '';
   try {
-    company = JSON.parse(localStorage.getItem('reuser'))?.find((i) => i.Setting_KeyRUS === 'databaseName')?.Setting_Value ?? '';
-    Name = JSON.parse(localStorage.getItem('user'))?.Name ?? '';
+    company = JSON.parse(localStorage.getItem('reuser'))?.find((item) => item.Setting_KeyRUS === 'databaseName')?.Setting_Value ?? null;
+    Name = JSON.parse(localStorage.getItem('user'))?.Name ?? null;
   } catch (e) {}
 
   function getCurrentTime() {
-    return new Date().toLocaleTimeString('fa-IR', { hour12: false });
+    const now = new Date();
+    return now.toLocaleTimeString("fa-IR", { hour12: false });
   }
+
   function getCurrentDate() {
-    return new Date().toLocaleDateString('fa-IR');
+    const now = new Date();
+    return now.toLocaleDateString("fa-IR");
   }
 
   const infoItems = [
@@ -1560,10 +1569,7 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
 
   const query = useSearchParams();
   const size = query.get("size") || "A4";
-
   const [printSize, setPrintSize] = useState( size || "A4");
-
-  // Page sizes
   const pageSize = [
     { name: "A5", rows: 9, width: 559, height: 794 },
     { name: "A4", rows: 20, width: 794, height: 1123 },
@@ -1577,21 +1583,19 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
     { name: "Envelope #10", rows: 16, width: 396, height: 912 },
     { name: "Envelope Monarch", rows: 11, width: 372, height: 720 },
   ];
-
   const selected = pageSize.find(p => p.name === size) || pageSize[1];
-
-
   const rowsPerPage = Number(selected.rows);
   const pageWidth = selected.width;
   const pageHeight = selected.height;
 
-  // Manual pagination
+  // the helper function from before
   const pages = [];
   for (let i = 0; i < rows.length; i += rowsPerPage) {
     pages.push(rows.slice(i, i + rowsPerPage));
   }
   const totalPages = pages.length;
 
+  //persian paginf numbers
   const toPersianDigits = (num) => num.toString().replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
 
   return (
@@ -1620,32 +1624,32 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
         }
       `}</style>
 
-      <div ref={ref} dir="rtl">
+      <div ref={ref} dir="rtl"> {/*used to be a Box, now its a div that just doesnt have the Box's sx */}
 
         {/* Print button */}
         <Box className="no-print" sx={{ textAlign: "center", py: 2, display: "flex", flexDirection: "row", px: "20px", gap: 2}}>
           <Button variant="contained" sx={{ bgcolor: "#00000085", }} onClick={() => window.print()}>
             Print
           </Button>
-        {/* Page size dropdown */}
-        <FormControl fullWidth>
-          <InputLabel>Page Size</InputLabel>
-          <Select
-            label="Page Size"
-            value={printSize}
-            onChange={(e) => {const newSize = e.target.value;
-              setPrintSize(newSize);
-              window.history.pushState({}, "", `/print?size=${newSize}`);
-            }}
-          >
-            {pageSize.map((p) => (
-              <MenuItem key={p.name} value={p.name}>{p.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          {/* Page size dropdown */}
+          <FormControl fullWidth>
+            <InputLabel>Page Size</InputLabel>
+            <Select
+              label="Page Size"
+              value={printSize}
+              onChange={(e) => {const newSize = e.target.value;
+                setPrintSize(newSize);
+                window.history.pushState({}, "", `/print?size=${newSize}`);
+              }}
+            >
+              {pageSize.map((p) => (
+                <MenuItem key={p.name} value={p.name}>{p.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Box>
 
-        {/* RENDER EACH PAGE */}
+        {/* RENDER EACH PAGE (new)*/}
         {pages.map((pageRows, pageIndex) => (
           <div 
             key={pageIndex} 
@@ -1660,7 +1664,7 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
               justifyContent: "center"
             }}
           >
-            <TableContainer component={Paper} sx={{ borderRadius: 0, overflow: "hidden"}}>
+            <TableContainer component={Paper} sx={{ width: "100%", borderRadius: 0, overflow: "hidden"}}>
               <Table size="small" sx={{ tableLayout: "fixed", width: "100%"}}>
                 {/* ✅ Define column widths once here */}
                   <colgroup>
@@ -1716,7 +1720,7 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
 
                   {/* Column headers */}
                   <TableRow>
-                    <HeaderCell rowSpan={2}>ردیف</HeaderCell>
+                    <HeaderCell rowSpan={2} boxProps={{ justifyContent: 'flex-end', }}>ردیف</HeaderCell>
                     <HeaderCell rowSpan={2}>سطح</HeaderCell>
                     <HeaderCell colSpan={4}>کد حساب</HeaderCell>
                     <HeaderCell rowSpan={2}>نام حساب</HeaderCell>
@@ -1724,7 +1728,7 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
                     <HeaderCell rowSpan={2}>جزء</HeaderCell>
                     <HeaderCell rowSpan={2}>ماهيت مانده</HeaderCell>
                     <HeaderCell rowSpan={2}>ماهيت بودجه</HeaderCell>
-                    <HeaderCell rowSpan={2}>تعداد</HeaderCell>
+                    <HeaderCell rowSpan={2} boxProps={{ justifyContent: 'flex-end', }}>تعداد</HeaderCell>
                     <HeaderCell rowSpan={2}>شرح تعداد</HeaderCell>
                     <HeaderCell rowSpan={2}>شماره عطف</HeaderCell>
                     <HeaderCell rowSpan={2}>تاريخ عطف</HeaderCell>
@@ -1732,26 +1736,26 @@ const AccountListReport = React.forwardRef(function AccountListReport({ rows = [
                     <HeaderCell>مرکز هزینه</HeaderCell>
                     <HeaderCell>مرکز1</HeaderCell>
                   </TableRow>
-
-                  <TableRow>
-                    {['ت1','ت2','معین','کل'].map(t => (
-                      <HeaderCell key={t}>{t}</HeaderCell>
-                    ))}
-                    <HeaderCell>پروژه</HeaderCell>
-                    <HeaderCell>مرکز2</HeaderCell>
-                  </TableRow>
+                    <TableRow>
+                      {["ت1", "ت2", "معین", "کل"].map((label) => (
+                        <HeaderCell key={label} boxProps={{ justifyContent: 'flex-end', }}>{label}</HeaderCell>
+                      ))}
+                      {["پروژه", "مرکز2"].map((label) => (
+                        <HeaderCell key={label}>{label}</HeaderCell>
+                      ))}
+                    </TableRow>
                 </TableHead>
 
                 {/* PAGE BODY */}
                 <TableBody>
-                  {pageRows.map((row, idx) => (
-                    <React.Fragment key={idx}>
+                  {pageRows.map((row, index) => ( //used to be rows.map
+                    <React.Fragment key={index}>
                       <TableRow>
-                        <HeaderCell rowSpan={2}>{row.RecordNo}</HeaderCell>
-                        <HeaderCell rowSpan={2}>{row.CalcLevel}</HeaderCell>
-                        <HeaderCell rowSpan={2}>{row.AccTa2MST}</HeaderCell>
-                        <HeaderCell rowSpan={2}>{row.AccTa1MST}</HeaderCell>
-                        <HeaderCell rowSpan={2}>{row.AccMoeMST}</HeaderCell>
+                        <HeaderCell rowSpan={2} boxProps={{ justifyContent: 'flex-end', }}>{row.RecordNo}</HeaderCell> 
+                        <HeaderCell rowSpan={2} boxProps={{ justifyContent: 'center', }}>{row.CalcLevel}</HeaderCell> 
+                        <HeaderCell rowSpan={2} boxProps={{ justifyContent: 'flex-end', }}>{row.AccTa2MST}</HeaderCell> 
+                        <HeaderCell rowSpan={2} boxProps={{ justifyContent: 'flex-end', }}>{row.AccTa1MST}</HeaderCell> 
+                        <HeaderCell rowSpan={2} boxProps={{ justifyContent: 'flex-end', }}>{row.AccMoeMST}</HeaderCell> 
                         <HeaderCell rowSpan={2}>{row.AccKolMST}</HeaderCell>
                         <HeaderCell rowSpan={2}>{row.AccName}</HeaderCell>
                         <HeaderCell rowSpan={2}>{row.AccTypMST}</HeaderCell>
